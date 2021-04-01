@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+    #checkoutMethods {
+        background: #fff;
+        border-radius: 2px;
+        display: inline-block;
+        max-height: 700px;
+        margin: 1rem;
+        position: relative;
+        width: 700px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    }
+    body {
+        /* padding-top: 70px; */
+        font-family: Poppins;
+    }
+</style>
+<body>
+    <div class="all-title-box" style="background-color:#b0b435">
+        <div class="container">
+            <div class="row">
+
+                <h5 style="font-size: 24px;font-weight: 700;text-transform: uppercase;">Delivery Information<br><small></small></h5>  
+
+            </div>
+        </div>
+    </div> <br><br>
+    <div class="container">
+        <section>
+            
+            <div class="row" id="tablerow">
+             <div class="col-md-1 col-xs-12"></div>
+              <div class="col-md-1 col-xs-12"></div>
+               <div class="col-md-1 col-xs-12"></div>
+                <div class="col-md-1 col-xs-12"></div>
+                <div class="col-md-5 col-xs-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+
+                            <div class="col-md-12">
+                                <form id="delivery">
+                                    <div class="form-group">
+                                        <label for="name" > Enter your full names</label>
+                                        <input type="text" id="names" class="form-control"
+                                            placeholder="......please enter your full name..." required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="location" >Enter your location</label>
+                                        <input type="text" id="location" class="form-control"
+                                            placeholder="....sector and street number...." required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone number" >Enter your phone number</label>
+                                        <input type="number" class="form-control" id="number" placeholder="......07xxxxxxxx......."
+                                            required>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" id="button" class="btn btn-outline-success">Send</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xs-12">
+
+                </div>
+            </div>
+            </div>
+        </section>
+
+      
+        <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+        <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+        <script type='text/javascript'>
+    $(document).ready(function () {
+        $("#delivery").submit(function (event) {
+            event.preventDefault();
+            var name = $("input#names").val();
+            var location = $("input#location").val();
+            if ($("input#names").val() && $("input#location").val()) {
+                alert("Hello, " + name + " located " + location + " your products will be delivered to you in 30 minutes,Thank you!!")
+                return;
+            }
+        });
+    });
+</script>
+        {% endblock %}
+

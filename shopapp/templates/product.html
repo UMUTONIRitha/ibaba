@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+
+<div class="shop-detail-box-main">
+    <div class="container">
+        <div class="row">
+         
+            <div class="col-xl-5 col-lg-5 col-md-6">
+                <div id="carousel-example-1" class="single-product-slider carousel slide" data-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                        <a href=""><img class="card-img-top" width="100%"
+                            src="{{ image.product_pic.url }}" alt="{{image.user.user.username}}"></a>
+                    
+                    </div>
+                 
+                </div>
+            </div>
+            <div class="col-xl-7 col-lg-7 col-md-6">
+                <div class="single-product-details">
+                    <h2>{{product.name}}</h2>
+                    <h5>Price: {{ product.price }} rwf</h5>               
+                    <p><strong>Short Description:</strong> {{product.description}}</p>
+                
+                    <h2></h2>
+
+                </div>
+                
+             <div style="padding-top:100px; margin-right: 100px;">
+                <div class="col-lg-12">
+                    <ul class="nav nav-pills nav-justified">
+                    
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-success" data-toggle="pill" href="#specification"style="text-transform: uppercase;font-weight: 800;">Comments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-success" data-toggle="pill" href="#reviews"style="text-transform: uppercase;font-weight: 800;">Rates</a>
+                        </li>
+                    </ul>
+        
+                    <div class="tab-content">
+                       
+                        <div id="specification" class="container tab-pane fade">
+                            <br>
+                            <!-- <h4>Comments</h4> -->
+                            {% for comment in image.comments.all %}
+                            <div class="comment">
+                                <div class="ml-2"><strong><img
+                                            src="{{comment.user.profile_pic.url}}" class="rounded-circle border ml-3 mt-2  mr-3"
+                                            alt="{{image.user.user.username}}" width="35" height="35">{{ comment.user.user.username }}</strong> 
+                                            <span class="text-secondary">{{ comment.comment }}</span>
+                                </div>
+                            </div>
+                            {% empty %}
+                            <p class="ml-3">No comments here yet</p>
+                            {% endfor %}
+                            <br>
+                            <form class="form" action="" method="post" novalidate>
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        {{ form|crispy }}
+                                    </div>
+                                    {% if user.is_authenticated %}
+                                    <div class="col-md-2 mt-4">
+                                        <button type="submit" class="btn btn-sm btn-outline-success"
+                                            style="margin-top:14px; margin-left:-10px">post</button>
+                                    </div>
+                                    {% else %}
+                                    <a class="btn btn-outline-primary" href="/login">Login to comment</a>
+                                    {% endif %}
+                                </div>
+                            </form>
+                            
+                        </div>
+                        <div id="reviews" class="container tab-pane fade">
+                            <div class="reviews-submitted">
+                                <br>
+                                {% if rates %}
+                            <p class="text-center" style="font-weight: bold;">Average ratings</p>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Prices</th>
+                                        <th scope="col">quality</th>
+                                        <th scope="col">Delivery</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><button class="btn p-2"
+                                            style="background-color: #b0b435;border-radius: 50%;">{{product.avg_price |floatformat}}</button>
+                                        </td>
+                                        <td><button class="btn p-2" style="background-color: #b0b435;border-radius: 50%;">{{product.avg_quality |floatformat}}</button>
+                                        </td>
+                                        <td><button class="btn p-2"
+                                            style="background-color: #b0b435;border-radius: 50%;">{{product.avg_delivery |floatformat}}</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            {%else%}
+                            {%endif%}<br>
+                            <p class="text-center" style="font-weight: bold;">Ratings with users</p>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Username</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">quality</th>
+                                        <th scope="col">Delivery</th>
+                                    </tr>
+                                </thead>
+                                {% for rate in rates %}
+                                {% if product.id == rate.product.id %}
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">{{rate.user.username}}</th>
+                                        <td>{{rate.prices}}</td>
+                                        <td>{{rate.qualities}}</td>
+                                        <td>{{rate.deliveries}}</td>
+                                    </tr>
+                                </tbody>
+                                {%endif%}
+                                {% endfor  %}
+                            </table>
+                            <div class="row justify-content-center">
+                                <a data-toggle="modal" data-target="#exampleModal2" class="btn btn-outline-success"
+                                    style="text-align: center;">Rate Service</a>
+                            </div><br>
+                            <div class="col-md-1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Rate Service</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container">
+                                {% if user.is_authenticated %}
+                                <form class="form" action="" method="post" novalidate>
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            {{ form_rate|crispy }}
+                                        </div>
+                                        <div class="modal-footer">
+                                        <div class="col-md-2 mt-4">
+                                            <button type="submit" class="btn btn-sm btn-outline-primary"
+                                                style="margin-top:14px; margin-left:-10px">Rate</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </form>
+                                {% else %}
+                                <p>Login first to rate this service</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="modal-footer"></div>
+                            </div>
+                            <div class="reviews-submit">
+                                <h4>Give your Review:</h4>
+                                <div class="ratting">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+        </div>
+                </div>
+            </div>
+        </div>
+             {% endblock %}
+        </div>
+
+       
+
+
+

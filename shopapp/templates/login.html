@@ -1,0 +1,91 @@
+{%extends "register/base.html"%}
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<style>
+     body{
+        padding: 0;
+        margin: 0;
+        background-image: url('https://res.cloudinary.com/auca/image/upload/v1614682536/login_tjapeg.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+
+    }
+    h3{
+        color: white; 
+        margin-left: 1%;
+        font-family: 'Spartan', sans-serif;
+    }
+    p{
+      font-family: 'Spartan', sans-serif;
+    }
+  
+    form{
+      color: white;
+  
+    }
+    form input{
+      width: 100%;
+      overflow: hidden;
+      font-size: 20px;
+      padding: 8px 0;
+      margin:  8px 0;
+      border-bottom: 1px solid;
+      font-family: 'Spartan', sans-serif;
+    }
+    
+      
+  
+  </style>
+  {% if messages %}
+  <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }} p-3 mb-2 bg-success text-white" {% endif %}>{{ message }}
+          </li>
+          {% endfor %}
+  </ul>
+  {% endif %}
+  <div class=" container">
+    <div class="row">
+      <!-- Empty div -->
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        
+        <div class="panel panel-default" style="margin-top: 35%">
+  
+          <div class="panel-heading">
+            <h3 style="text-align: center;"><strong>Login</strong></h3>
+            <hr style="width: 20%; border: 2px solid #E4AD08;" >
+          
+          </div>
+         
+          <div class="panel-body">
+  <div class=" login col-md-20">
+  
+  
+            <form  action="" method="post" method="post">
+             {% csrf_token %}
+                        {% bootstrap_form form%}
+  
+              <div class="form-group">
+                <input type="submit" class="btn btn-warning btn-lg btn-block" style="color: #fff;" value="Log in">
+              </div>
+  
+              <input type="hidden" name="next" value="{{next}}">
+
+            </form>
+          </div>
+  
+          </div>
+  
+        </div>
+       
+      <p>Don't have an account?? <a id="sign" href="/signup" style="color: #E4AD08;"> sign up</a></p>
+      </div>
+      <!-- empty div -->
+      <div class="col-md-4"></div>
+    </div>
+  </div>
+  
+  {% endblock %}

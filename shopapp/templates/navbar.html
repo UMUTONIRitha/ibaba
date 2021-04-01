@@ -1,0 +1,47 @@
+ <header class="main-header" style="font-family: Poppins;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <div class="container-fluid">
+         
+                  
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    {% if user.is_authenticated %}
+                  <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                      <a href="{% url 'product_list' %}" class="nav-link active" aria-current="page"  style="color: #000;"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Shop</a>
+                      {% else %}
+                      <li class="nav-item">
+                        <a class="nav-link" href="/signup" style="color: #000;">Signup</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/login" style="color: rgb(206, 204, 71);">|Login</a>
+                      </li>
+                      {% endif %}
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'order_summary' %}" style="color: black;"><i class="fa fa-shopping-bag"></i> Cart</a>
+                    </li>
+                    
+                        {% if user.is_authenticated %}
+                        <a class="nav-link" href="{% url 'index'  %}" style="color: #000;">Home</a>
+                        <a class="nav-link" href="{% url 'profile' user.username  %}" style="color: #000;"><i
+                            class="fa fa-user s_color"></i> My Account</a>
+                            <a class="nav-link" href="{% url 'contact'  %}" style="color: #000;">Contact us</a>
+                            <a class="nav-link" href="{% url 'about'  %}" style="color: #000;">About us</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/logout" style="color: rgb(206, 204, 71);">|Logout</a>
+                      </li>
+                      {% endif %}
+                     
+                       
+                  </ul>
+                 
+                </div>
+              </div>
+        </div>
+      </nav>
+</header> 

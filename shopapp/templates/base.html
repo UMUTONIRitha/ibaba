@@ -1,0 +1,84 @@
+{% load static %}
+<html>
+
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144351462-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-144351462-1');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Shop</title>
+  {% block styles %}
+  
+
+  <!-- Site Icons -->
+    <link rel="shortcut icon" href="{% static 'static/images/favicon.ico" type="image/x-icon' %}">
+    <link rel="apple-touch-icon" href="{% static 'static/images/apple-touch-icon.png' %}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+
+
+  {% endblock %}
+</head>
+
+<body>
+  <div>
+    {% block title %}
+    {% endblock %}
+    
+    {% include "navbar.html" %}
+    
+    {% block content %}
+    {% endblock %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    <!-- {% include "footer.html" %} -->
+    {% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+   
+    <!-- ALL JS FILES -->
+    <script src="{% static 'js/jquery-3.2.1.min.js'%}"></script>
+    <script src="{% static 'js/popper.min.js'%}"></script>
+    <script src="{% static 'js/bootstrap.min.js'%}"></script>
+    <!-- ALL PLUGINS -->
+    <script src="{% static 'js/jquery.superslides.min.js'%}"></script>
+    <script src="{% static 'js/bootstrap-select.js'%}"></script>
+    <script src="{% static 'js/inewsticker.js'%}"></script>
+    <script src="{% static 'js/bootsnav.js.'%}"></script>
+    <script src="{% static 'js/images-loded.min.js'%}"></script>
+    <script src="{% static 'js/isotope.min.js'%}"></script>
+    <script src="{% static 'js/owl.carousel.min.js'%}"></script>
+    <script src="{% static 'js/baguetteBox.min.js'%}"></script>
+    <script src="{% static 'js/form-validator.min.js'%}"></script>
+    <script src="{% static 'js/contact-form-script.js'%}"></script>
+    <script src="{% static 'js/custom.js'%}"></script>
+   
+
+    {% endblock %}
+
+  </div>
+</body>
+
+</html>

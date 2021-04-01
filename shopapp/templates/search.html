@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+    .card-img {
+        width: 100%;
+        height: 38vw;
+        object-fit: cover;
+    }
+
+    .card-img-top {
+        width: 100%;
+        /* height: 15vw; */
+        object-fit: cover;
+    }
+</style>
+
+<div class="container">
+
+    {% if object_list %}
+    <h3 class="text-center m-4" style="color: red;">Found {{ object_list|length }} products</h3>
+    {% else %}
+    <h3 class="text-center m-4" style="color: red;">Found {{ object_list|length }} products</h3>
+    {% endif %}
+    <div class="text-center">
+        {% for category in categories %}
+
+        <a class="mr-1 badge badge-info" href="/categories/{{category.name}}" style="margin:8px">#{{category.name}}</a>
+        {% endfor %}
+    </div>
+    <hr>
+
+    <div class="row justify-content-center">
+       
+        {% for object in object_list %}
+
+
+        <div class="card col-md-3 m-3">
+            <a href="{% url 'comment' object.pk %}"><img class="card-img-top" width="100%" src="{{object.grocery_pic.url}}" alt="-------"></a>
+
+            <div class="card-body">
+                <h5 class="card-title"><span>{{ object.name|title }}</span></h5>
+                <p>Price: ${{ object.price }}</p>
+                <a href="/product-list" class="btn btn-warning">Add to Cart</a>
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#{{object.id}}">
+                    View item
+                </button>
+
+                <div class="modal fade" id="{{object.id}}" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">{{ object.name|title }}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <img src="{{object.product_pic.url}}" alt="{{object.name}}" class="img-fluid">
+    
+                                <p class="imgdesc" style="padding-top: 10px;">Description:<span
+                                        style="font-weight: bold;">{{object.description}}</span></p>
+                                <p>Price:<span style="font-weight: bold;">${{object.price}}</span></p> <br>
+                                <button class="mr-1 badge badge-info"><i
+                                    class="fas fa-location-arrow"></i>{{object.category}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        {% endfor %}
+
+
+    </div>
+</div>
+
+{% endblock %}
